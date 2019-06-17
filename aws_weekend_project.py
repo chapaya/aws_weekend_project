@@ -51,6 +51,11 @@ def main():
             ids.append(instance['InstanceId'])
 
     print(ids)
+
+    for server in ids:
+        server = ec2resource.Instance(server)
+        print('server status: ' + server.state['Name'])
+
     #Start instances
     ec2client.start_instances(InstanceIds=ids)
     print('Started your instances: ' + str(ids))
