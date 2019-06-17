@@ -65,7 +65,6 @@ def main():
     for id in ids:
         server = ec2resource.Instance(id)
         print('Working on server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
-        server = ec2resource.Instance(id)
         server.stop()
         server.wait_until_stopped()
         print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
