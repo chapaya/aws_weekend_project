@@ -63,6 +63,7 @@ def main():
     #Start instances with resource
     print('Stopping servers ... ')
     for id in ids:
+        print('Working on server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
         server = ec2resource.Instance(id)
         server.stop()
         server.wait_until_stopped()
