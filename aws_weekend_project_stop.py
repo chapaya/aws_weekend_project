@@ -38,7 +38,7 @@ def get_weekend_tag_value(fid):
 def main():
     instances = ec2client.describe_instances(Filters=[{'Name': 'tag:Weekend', 'Values': ['True'] }]) # instances that has tag Weekend with any value
     #print(instances)
-    print(instances['Reservations'])
+    #print(instances['Reservations'])
     if instances['Reservations'] == []:
         print("No ec2 server has tag Weekend=True .. bye..")
         sys.exit()
@@ -61,11 +61,11 @@ def main():
     #print('Started your instances: ' + str(ids))
 
     #Start instances with resource
-    print('Starting servers ... ')
+    print('Stopping servers ... ')
     for id in ids:
         server = ec2resource.Instance(id)
-        server.start()
-        server.wait_until_running()
+        server.stop()
+        server.wait_until_stopped()
         print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
 
     print('Servers status after ... ')

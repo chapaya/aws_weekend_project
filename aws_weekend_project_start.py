@@ -38,7 +38,7 @@ def get_weekend_tag_value(fid):
 def main():
     instances = ec2client.describe_instances(Filters=[{'Name': 'tag:Weekend', 'Values': ['True'] }]) # instances that has tag Weekend with any value
     #print(instances)
-    print(instances['Reservations'])
+    #print(instances['Reservations'])
     if instances['Reservations'] == []:
         print("No ec2 server has tag Weekend=True .. bye..")
         sys.exit()
