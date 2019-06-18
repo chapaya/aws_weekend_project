@@ -21,7 +21,14 @@ def get_name(fid,region):
 # Main program #
 def main():
     #script_action = sys.argv[1]  # Can be start or stop
-    script_action = 'stop' #sys.argv[1]  # Can be start or stop
+    script_action = 'start' #sys.argv[1]  # Can be start or stop
+    if script_action not in ('start', 'stop'):
+        print('Script action must be start or stop ! .. bye')
+        sys.exit()
+    else:
+        print('action is permitted ! ' + script_action)
+        pass
+
     print('Script action: ' + script_action)
     regions = ['us-east-1', 'eu-west-1']
     for region in regions:
