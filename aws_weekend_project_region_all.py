@@ -17,11 +17,10 @@ def get_name(fid,region):
             instancename = tags["Value"]
     return(instancename)
 
-
 # Main program #
 def main():
     #script_action = sys.argv[1]  # Can be start or stop
-    script_action = 'start' #sys.argv[1]  # Can be start or stop
+    script_action = 'stop' #sys.argv[1]  # Can be start or stop
     if script_action not in ('start', 'stop'):
         print('Script action must be start or stop ! .. bye')
         sys.exit()
