@@ -32,6 +32,8 @@ def get_weekend_tag_value(fid):
 
 # Main program #
 def main():
+    #script_action = sys.argv[1]  # Can be start or stop
+    script_action = 'start' #sys.argv[1]  # Can be start or stop
     regions = ['us-east-1', 'eu-west-1']
     for region in regions:
         print('Checking region: ' + region)
@@ -43,7 +45,6 @@ def main():
         if instances['Reservations'] == []:
             print("No ec2 server has tag Weekend=True .. bye..")
             continue # exit from loop
-            #sys.exit()
 
         ids = []
 
@@ -58,18 +59,25 @@ def main():
             server = ec2resource.Instance(id)
             print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
 
-        #Start instances with client
-        #ec2client.start_instances(InstanceIds=ids)
-        #print('Started your instances: ' + str(ids))
-
-        #Start instances with resource
-        print('Starting servers ... ')
-        for id in ids:
-            server = ec2resource.Instance(id)
-            print('Working on server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
-            server.start()
-            server.wait_until_running()
-            print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
+        #Doing the action that was choosen
+        if script_action == 'start':
+            print('Starting servers ... ')
+            for id in ids:
+                server = ec2resource.Instance(id)
+                print('Working on server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
+                server.start()
+                server.wait_until_running()
+                print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
+        elif script_action == 'stop':
+            for id in ids:
+                server = ec2resource.Instance(id)
+                print('Working on server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
+                server.stop()
+                server.wait_until_stopped()
+                print('server ' + id + ' - ' + get_name(id) + ' status: ' + server.state['Name'])
+        else:
+            print('Script action must be start or stop ! .. bye')
+            sys.exit()
 
         print('Servers status after ... ')
         for id in ids:
